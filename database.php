@@ -67,6 +67,22 @@ if ($conn->query($sql) === TRUE) {
 } else {
     echo "Error creating table: " . $conn->error . "<br>";
 }
+$usersData = [
+    ['Peter Imre', password_hash('password123', PASSWORD_DEFAULT), 'peterimre@example.com'],
+    ['Kedves Lajos', password_hash('securepass', PASSWORD_DEFAULT), 'kedveslajos@example.com']
+];
+
+foreach ($usersData as $user) {
+    $username = $user[0];
+    $password = $user[1];
+    $email = $user[2];
+    $sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
+    if ($conn->query($sql) === TRUE) {
+        echo "<br>User added successfully: $username";
+    } else {
+        echo "<br>Error adding user: " . $conn->error;
+    }
+}
 $conn->close();
 ?>
 
